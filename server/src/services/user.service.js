@@ -5,18 +5,23 @@ const UserDto = require('../dtos/user.dto');
 const ApiError = require('../helpers/apiError');
 
 class UserService {
-  async registration (login, password, firstName, middleName, lastName) {
+  async registration (login, password, firstName, middleName, lastName, managerId = null) {
     const candidate = await User.findOne({ where: { login } });
+    const manager = await User.findOne({ where: { id: managerId } });
+    const managerIdx = manager ? managerId : null;
+
     if (candidate) {
       throw ApiError.badRequest(`User ${login} already exists`);
     }
     const hashPassword = await bcrypt.hash(password, 8);
+
     const user = await User.create({
       login,
       password: hashPassword,
       firstName,
       lastName,
-      middleName
+      middleName,
+      managerId: managerIdx
     });
     const userDto = new UserDto(user);
     const tokens = TokenService.generateToken({ ...userDto });

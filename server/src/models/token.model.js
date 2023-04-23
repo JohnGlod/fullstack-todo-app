@@ -15,7 +15,7 @@ Token.init(
         deferrable: Deferrable.INITIALLY_IMMEDIATE
       }
     },
-    refreshToken: { type: DataTypes.STRING, allowNull: false }
+    refreshToken: { type: DataTypes.STRING(500), allowNull: false }
   },
   {
     sequelize,
