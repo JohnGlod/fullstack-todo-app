@@ -8,18 +8,21 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint:fix": "eslint --fix --ext ts,tsx src/",
-    "format": "prettier --write src/ --config ./prettierrc.js",
+    "format": "prettier --write src/ --config ./.prettierrc.json",
     "clean": "del /f /q node_modules yarn.lock && yarn install"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "axios": "^1.3.6",
     "framer-motion": "^10.12.2",
     "mobx": "^6.9.0",
     "mobx-react-lite": "^3.4.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-router-dom": "^6.10.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
