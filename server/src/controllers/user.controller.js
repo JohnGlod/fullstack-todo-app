@@ -12,17 +12,9 @@ class UserController {
 
   async getMyAssigns (req, res, next) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       const employees = await userService.getMyEmployees(id);
       return res.json(employees);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async getUserById (req, res, next) {
-    try {
-      return res.json('getUserById');
     } catch (error) {
       next(error);
     }

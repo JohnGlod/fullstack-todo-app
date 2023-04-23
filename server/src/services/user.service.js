@@ -51,8 +51,7 @@ class UserService {
   }
 
   async logout (refreshToken) {
-    const token = await TokenService.removeToken(refreshToken);
-    return token;
+    return await TokenService.removeToken(refreshToken);
   }
 
   async refresh (refreshToken) {
@@ -75,8 +74,7 @@ class UserService {
   }
 
   async getAllUsers () {
-    const users = await User.findAll();
-    return users;
+    return await User.findAll();
   }
 
   async createMyEmployee (userId, managerId) {
@@ -94,7 +92,7 @@ class UserService {
     if (!id) {
       throw ApiError.badRequest('User id is required');
     }
-    const users = await User.findAll({ where: { menagerId: id } });
+    const users = await User.findAll({ where: { managerId: id } });
     return users;
   }
 }

@@ -9,8 +9,9 @@ export class AuthService {
   static async login(userInfo: LoginData): Promise<AxiosResponse<AuthResponse>> {
     return api.post<AuthResponse>('login', userInfo);
   }
-  static async signup(userInfo: SignUpData): Promise<AxiosResponse<AuthResponse>> {
-    return api.post<AuthResponse>('registration', userInfo);
+  static async signup(userInfo: SignUpData, id ?: string): Promise<AxiosResponse<AuthResponse>> {
+    const path = id ? `registration/${id}` : 'registration';
+    return api.post<AuthResponse>(path, userInfo);
   }
   static async logout(): Promise<void> {
     return api.post('logout');

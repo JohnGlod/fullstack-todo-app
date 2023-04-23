@@ -17,7 +17,7 @@ ToDo.init(
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     finishDate: {
@@ -54,9 +54,5 @@ ToDo.init(
     modelName: 'ToDo'
   }
 );
-
-(async () => {
-  await sequelize.sync({ force: true });
-})();
 
 module.exports = ToDo;
