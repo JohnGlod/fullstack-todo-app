@@ -13,20 +13,24 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 
-import { TodoCreate, TodoDto } from '../models/ITodo.interface';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useContext, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+
+import { UserContext } from '../main';
+import { todosStore } from '../store/todos';
 
 import { STATUS_OPTIOS, PRIORITY_OPTIONS } from '../constants';
-import { useContext } from 'react';
-import { UserContext } from '../main';
+import { ITodo, TodoCreate } from '../models';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  addTodo: (todo: TodoDto) => void;
+  initialValue?: ITodo | undefined;
+  isUpdate: boolean;
 }
 
-export const CreateTodo = ({ isOpen, onClose, addTodo }: Props) => {
+export const CreateOrEditTodo = observer(({ isOpen, onClose, initialValue, isUpdate = false }: Props) => {
   const {
     register,
     formState: { errors, isValid },
@@ -35,16 +39,25 @@ export const CreateTodo = ({ isOpen, onClose, addTodo }: Props) => {
   } = useForm<TodoCreate>({
     mode: 'onBlur',
   });
+
   const onSubmit: SubmitHandler<TodoCreate> = (data) => {
     if (isValid) {
-      addTodo({...data, createdBy: user.id });
+      if (!initialValue) {
+        console.log(data);
+        todosStore.addTodo({ ...data, finishDate: data.finishDate.slice(0, 16), createdBy: user.id });
+      } else {
+        todosStore.updateTodo({ ...initialValue, ...data });
+      }
       reset();
     }
   };
+
+  useEffect(() => {
+    reset({ ...initialValue, finishDate: initialValue?.finishDate.slice(0, 16) });
+  }, []);
+
   const { store } = useContext(UserContext);
-
   const { myEmployees, user } = store;
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -58,6 +71,7 @@ export const CreateTodo = ({ isOpen, onClose, addTodo }: Props) => {
                 {...register('title', {
                   required: 'This field is required',
                 })}
+                disabled={!isUpdate}
               />
               <FormErrorMessage>{errors?.title?.message}</FormErrorMessage>
             </FormControl>
@@ -71,6 +85,7 @@ export const CreateTodo = ({ isOpen, onClose, addTodo }: Props) => {
                 placeholder="Enter a description of the task"
                 size="sm"
                 resize={'vertical'}
+                disabled={!isUpdate}
               />
               <FormErrorMessage>{errors?.description?.message}</FormErrorMessage>
             </FormControl>
@@ -83,6 +98,7 @@ export const CreateTodo = ({ isOpen, onClose, addTodo }: Props) => {
                 {...register('finishDate', {
                   required: 'This field is required',
                 })}
+                disabled={!isUpdate}
               />
               <FormErrorMessage>{errors?.finishDate?.message}</FormErrorMessage>
             </FormControl>
@@ -107,6 +123,7 @@ export const CreateTodo = ({ isOpen, onClose, addTodo }: Props) => {
                 {...register('priority', {
                   required: 'This field is required',
                 })}
+                disabled={!isUpdate}
               >
                 {PRIORITY_OPTIONS.map((priority) => (
                   <option key={priority} value={priority}>
@@ -117,27 +134,28 @@ export const CreateTodo = ({ isOpen, onClose, addTodo }: Props) => {
               <FormErrorMessage>{errors?.priority?.message}</FormErrorMessage>
             </FormControl>
             <FormControl mt={4} isInvalid={!!errors?.assignee?.message}>
-              <FormLabel>Employee</FormLabel>
+              <FormLabel>Responsible</FormLabel>
               <Select
                 {...register('assignee', {
                   required: 'This field is required',
                 })}
+                disabled={!isUpdate}
               >
-                {myEmployees.length === 0 && <option disabled>No employees</option>}
+                {myEmployees.length === 0 && <option>{initialValue ? initialValue.assignee : 'No employees'}</option>}
                 {myEmployees.map((employee) => (
-                  <option key={employee.id} value={employee.id}>
-                    {employee.firstName + ' ' + employee.lastName}
+                  <option key={employee.id} value={employee.fullName}>
+                    {employee.fullName}
                   </option>
                 ))}
               </Select>
               <FormErrorMessage>{errors?.assignee?.message}</FormErrorMessage>
             </FormControl>
             <Button mt={4} colorScheme="linkedin" type="submit" w={'full'}>
-              Create
+              {initialValue ? 'Update' : 'Create'}
             </Button>
           </form>
         </ModalBody>
       </ModalContent>
     </Modal>
   );
-};
+});

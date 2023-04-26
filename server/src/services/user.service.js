@@ -88,11 +88,16 @@ class UserService {
     return user;
   }
 
-  async getMyEmployees (id) {
+  async getMyEmployees(id) {
     if (!id) {
       throw ApiError.badRequest('User id is required');
     }
-    const users = await User.findAll({ where: { managerId: id } });
+    const users = await User.findAll({
+      where: { managerId: id },
+      attributes: {
+        exclude: ['password']
+      }
+    });
     return users;
   }
 }

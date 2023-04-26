@@ -40,12 +40,8 @@ ToDo.init(
       }
     },
     assignee: {
-      type: DataTypes.UUID,
-      references: {
-        model: User,
-        key: 'id',
-        deferrable: Deferrable.INITIALLY_IMMEDIATE
-      }
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {

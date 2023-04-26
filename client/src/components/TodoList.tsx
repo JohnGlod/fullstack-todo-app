@@ -1,27 +1,15 @@
-import { Grid } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
+
 import { TodoItem } from './TodoItem';
-import { observer } from 'mobx-react-lite';
 
-import { todosStore } from '../store/todos';
-import { useContext, useEffect } from 'react';
-import { UserContext } from '../main';
+import { ITodo } from '../models';
 
-export const TodoList = observer(({ id }: { id?: string }) => {
-  const { todos} = todosStore;
-  const { store } = useContext(UserContext);
-
-  const { isAdmin } = store;
-
-  useEffect(() => {
-    const path = isAdmin ? `todos/manager/${id}` : `todos/employee/${id}`;
-    todosStore.getTodos(path)
-  }, []);
-
+export const TodoList = ({ isAdmin, todos }: { todos: ITodo[]; isAdmin: boolean }) => {
   return (
-    <Grid templateColumns="repeat(5, 1fr)" gap={6}>
+    <SimpleGrid minChildWidth='200px' spacing='20px'>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} {...todo} />
+        <TodoItem key={todo.id} isAdmin={isAdmin} todo={todo} />
       ))}
-    </Grid>
+    </SimpleGrid>
   );
-});
+};

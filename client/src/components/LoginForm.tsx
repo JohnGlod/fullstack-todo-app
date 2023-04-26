@@ -1,12 +1,13 @@
-import { FormControl, FormErrorMessage, FormLabel, Input, Button } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormLabel, Input, Button, Text } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { observer } from 'mobx-react-lite';
-import { LoginData } from '../models/IUser.interface';
-import { isEmailValidate } from '../utils/isEmailValidate';
-
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
+
+import { isEmailValidate } from '../utils/isEmailValidate';
 import { UserContext } from '../main';
+
+import { LoginData } from '../models/IUser.interface';
 
 export const LoginForm = observer(() => {
   const {store} = useContext(UserContext)
@@ -63,6 +64,7 @@ export const LoginForm = observer(() => {
       <Button mt={4} colorScheme="linkedin" type="submit" w={'full'}>
         Continue
       </Button>
+      {store.errorMessages && <Text fontSize='xl' color={'red.300'}>{store.errorMessages}</Text>}
     </form>
   );
 });

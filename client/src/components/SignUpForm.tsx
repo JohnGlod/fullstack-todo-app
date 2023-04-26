@@ -1,11 +1,13 @@
 import { FormControl, FormErrorMessage, FormLabel, Input, Button } from '@chakra-ui/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { SignUpData } from '../models/IUser.interface';
-import { isEmailValidate } from '../utils/isEmailValidate';
-import { observer } from 'mobx-react-lite';
-import { UserContext } from '../main';
 import { useContext } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { observer } from 'mobx-react-lite';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { isEmailValidate } from '../utils/isEmailValidate';
+import { UserContext } from '../main';
+
+import { SignUpData } from '../models/IUser.interface';
 
 export const SignUpForm = observer(() => {
   const {

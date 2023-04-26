@@ -53,7 +53,8 @@ class ToDoController {
 
   async getToDos (req, res, next) {
     try {
-      return await todoService.getToDos();
+      const result = await todoService.getToDos();
+      res.json(result);
     } catch (error) {
       next(error);
     }

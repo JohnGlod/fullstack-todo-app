@@ -1,7 +1,7 @@
-import React from 'react';
-import { SignUpForm } from '../components/SignUpForm';
 import { Box, Heading } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+
+import { SignUpForm } from '../components';
 
 export const Registration = () => {
   return (
