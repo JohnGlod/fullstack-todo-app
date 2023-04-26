@@ -3,13 +3,13 @@ const userService = require('../services/user.service');
 const ApiError = require('../helpers/apiError');
 
 class AuthController {
-  async login(req, res, next) {
+  async login (req, res, next) {
     try {
       const { login, password } = req.body;
       const userData = await userService.login(login, password);
       res.cookie('refreshToken', userData.refreshToken, {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 24 * 60 * 60 * 1000
       });
       return res.json(userData);
     } catch (error) {
@@ -17,7 +17,7 @@ class AuthController {
     }
   }
 
-  async registration(req, res, next) {
+  async registration (req, res, next) {
     try {
       const errors = validationResult(req);
 
@@ -40,7 +40,7 @@ class AuthController {
 
       res.cookie('refreshToken', userData.refreshToken, {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 24 * 60 * 60 * 1000
       });
       return res.json(userData);
     } catch (error) {
@@ -48,7 +48,7 @@ class AuthController {
     }
   }
 
-  async logout(req, res, next) {
+  async logout (req, res, next) {
     try {
       const { refreshToken } = req.cookies;
       await userService.logout(refreshToken);
@@ -59,14 +59,14 @@ class AuthController {
     }
   }
 
-  async refresh(req, res, next) {
+  async refresh (req, res, next) {
     try {
       const { refreshToken } = req.cookies;
       const userData = await userService.refresh(refreshToken);
 
       res.cookie('refreshToken', userData.refreshToken, {
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 24 * 60 * 60 * 1000
       });
       return res.json(userData);
     } catch (error) {

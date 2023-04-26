@@ -17,7 +17,7 @@ ToDo.init(
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     finishDate: {
@@ -40,12 +40,8 @@ ToDo.init(
       }
     },
     assignee: {
-      type: DataTypes.UUID,
-      references: {
-        model: User,
-        key: 'id',
-        deferrable: Deferrable.INITIALLY_IMMEDIATE
-      }
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {
@@ -54,9 +50,5 @@ ToDo.init(
     modelName: 'ToDo'
   }
 );
-
-(async () => {
-  await sequelize.sync({ force: true });
-})();
 
 module.exports = ToDo;

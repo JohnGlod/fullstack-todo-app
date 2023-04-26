@@ -30,6 +30,12 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    fullName: {
+      type: DataTypes.VIRTUAL,
+      get () {
+        return `${this.firstName} ${this.lastName}`
+      }
     }
   },
   {
@@ -39,9 +45,5 @@ User.init(
   }
 );
 User.belongsTo(User, { as: 'manager' });
-
-(async () => {
-  await sequelize.sync({ force: true });
-})();
 
 module.exports = User;
