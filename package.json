@@ -1,0 +1,14 @@
+{
+  "name": "fullstack-todo-app",
+  "version": "1.0.0",
+  "description": "A Full Stack Todo App using Node.js, Express.js, React.js, MobX, Chakra UI, PostgreSQL.",
+  "main": "index.js",
+  "scripts": {
+    "build": "(cd server && yarn install) || (cd client && yarn install)",
+    "server": "cd server && yarn start",
+    "client": "cd client && yarn dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
