@@ -1,12 +1,12 @@
-import { EPriority } from "./EPriority.enum";
-import { EStatus } from "./EStatus.enum";
+import { EPriority } from './EPriority.enum';
+import { EStatus } from './EStatus.enum';
 
-export  interface ITodo {
+export interface ITodo {
   id: string;
   title: string;
   description: string;
   finishDate: string;
-  status: EStatus
+  status: EStatus;
   priority: EPriority;
   createdBy: string;
   assignee: string;
@@ -14,5 +14,5 @@ export  interface ITodo {
   createdAt: string;
 }
 
-export type TodoCreate = Omit<ITodo, 'id'| 'updatedAt' | 'createdAt' | 'createdBy'>
-export type TodoDto =  Omit<ITodo, 'id'| 'updatedAt' | 'createdAt' >
+export type TodoCreate = Omit<ITodo, 'id' | 'updatedAt' | 'createdAt' | 'createdBy'>;
+export type TodoDto = Omit<ITodo, 'id' | 'updatedAt' | 'createdAt'>;

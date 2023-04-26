@@ -53,7 +53,7 @@ export const Todos = observer(() => {
           <option value={EGroupBy.COMPLETION_DATE}> Completion date</option>
           {isAdmin && <option value={EGroupBy.RESPONSIBLE}>Responsible</option>}
         </Select>
-        
+
         {isAdmin && (
           <>
             <Button leftIcon={<AddIcon />} colorScheme="pink" variant="solid" onClick={onOpen}>

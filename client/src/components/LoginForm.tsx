@@ -10,7 +10,7 @@ import { UserContext } from '../main';
 import { LoginData } from '../models/IUser.interface';
 
 export const LoginForm = observer(() => {
-  const {store} = useContext(UserContext)
+  const { store } = useContext(UserContext);
   const navigate = useNavigate();
   const {
     register,
@@ -25,7 +25,7 @@ export const LoginForm = observer(() => {
     if (isValid) {
       await store.login(data);
       reset();
-      navigate(`/todos/${store.user.managerId ?? store.user.id}`, {replace: true})
+      navigate(`/todos/${store.user.managerId ?? store.user.id}`, { replace: true });
     }
   };
 
@@ -64,7 +64,11 @@ export const LoginForm = observer(() => {
       <Button mt={4} colorScheme="linkedin" type="submit" w={'full'}>
         Continue
       </Button>
-      {store.errorMessages && <Text fontSize='xl' color={'red.300'}>{store.errorMessages}</Text>}
+      {store.errorMessages && (
+        <Text fontSize="xl" color={'red.300'}>
+          {store.errorMessages}
+        </Text>
+      )}
     </form>
   );
 });

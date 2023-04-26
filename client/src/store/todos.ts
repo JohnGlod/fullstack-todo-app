@@ -23,10 +23,10 @@ class TodosStore {
     return function group(array: ITodo[]) {
       return array.reduce((acc, obj: ITodo) => {
         const property = obj[key];
-        if (key === "finishDate") {
+        if (key === 'finishDate') {
           const correntDay = Date.now();
           const oneDay = 24 * 60 * 60 * 1000;
-          const taskDate = new Date(obj.finishDate).getTime()
+          const taskDate = new Date(obj.finishDate).getTime();
           if (taskDate < correntDay + oneDay) {
             acc.today = acc.today || [];
             acc.today.push(obj);
@@ -71,16 +71,16 @@ class TodosStore {
     try {
       const response = await TodoService.addTodo(todo);
       const { data } = response;
-      this.setTodos([...this.todos, new TodoStore(data)]); 
-    }catch (error) {
+      this.setTodos([...this.todos, new TodoStore(data)]);
+    } catch (error) {
       console.log(error);
     }
   }
 
   async updateTodo(todo: ITodo) {
     try {
-      const response = await TodoService.updateTodo(todo);
-      this.setTodos(this.todos.map((item) => item.id === todo.id ? new TodoStore(todo) : item));
+      await TodoService.updateTodo(todo);
+      this.setTodos(this.todos.map((item) => (item.id === todo.id ? new TodoStore(todo) : item)));
     } catch (error) {
       console.log(error);
     }

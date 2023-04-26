@@ -10,5 +10,5 @@ export interface IUser {
 }
 
 export type SignUpData = Omit<IUser, 'id' | 'managerId' | 'fullName'>;
-export type LoginData = Pick<IUser, 'login' | 'password'| 'fullName'>;
+export type LoginData = Pick<IUser, 'login' | 'password' | 'fullName'>;
 export type UserDto = Omit<IUser, 'password'>;

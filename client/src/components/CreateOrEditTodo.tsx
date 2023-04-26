@@ -43,7 +43,6 @@ export const CreateOrEditTodo = observer(({ isOpen, onClose, initialValue, isUpd
   const onSubmit: SubmitHandler<TodoCreate> = (data) => {
     if (isValid) {
       if (!initialValue) {
-        console.log(data);
         todosStore.addTodo({ ...data, finishDate: data.finishDate.slice(0, 16), createdBy: user.id });
       } else {
         todosStore.updateTodo({ ...initialValue, ...data });

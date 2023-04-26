@@ -5,10 +5,13 @@ import { SignUpForm } from '../components';
 
 export const Registration = () => {
   return (
-    <Box minW='sm'>
-      <Heading  as='h2' size='lg' textAlign={'center'}> Sign Up</Heading>
+    <Box minW="sm">
+      <Heading as="h2" size="lg" textAlign={'center'}>
+        {' '}
+        Sign Up
+      </Heading>
       <SignUpForm />
-      <Box mt={4} >
+      <Box mt={4}>
         Already have an account?
         <Link to={'/'} className="link" style={{ marginLeft: '15px' }}>
           Sign In
